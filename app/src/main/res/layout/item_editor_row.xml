@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:background="#1E1E24">
+
+    <!-- Timestamp actuel de la ligne -->
+    <TextView
+        android:id="@+id/tvRowTime"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:text="00:00.000"
+        android:textColor="#FFAA00"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <!-- Texte de la parole -->
+    <TextView
+        android:id="@+id/tvRowText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Parole de la chanson"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"/>
+
+</LinearLayout>

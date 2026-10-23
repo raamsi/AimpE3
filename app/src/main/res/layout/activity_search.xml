@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#121212">
+
+    <!-- Top Header Bar with Snaptube style branding -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1A1A1A"
+        android:paddingHorizontal="12dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:text="←"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="0dp"/>
+
+        <!-- Snaptube Logo & Title -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ Snaptube"
+                    android:textColor="#FFCA28"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Music MP3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recherche par titre, artiste &amp; téléchargement rapide"
+                android:textColor="#888888"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnClearCompleted"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="Nettoyer"
+            android:textSize="11sp"
+            android:textColor="#AAAAAA"
+            android:backgroundTint="#2A2A2A"/>
+    </LinearLayout>
+
+    <!-- Main Search Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#1A1A1A"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#282828"
+            android:paddingHorizontal="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔍"
+                android:textSize="16sp"
+                android:layout_marginEnd="6dp"/>
+
+            <EditText
+                android:id="@+id/etSearchQuery"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Titre de la chanson, artiste ou lien URL..."
+                android:textColor="#FFFFFF"
+                android:textColorHint="#777777"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/btnClearSearch"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:text="✕"
+                android:textSize="12sp"
+                android:textColor="#888888"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:visibility="gone"
+                android:padding="0dp"/>
+
+            <Button
+                android:id="@+id/btnSubmitSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:text="Chercher"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:backgroundTint="#FFCA28"
+                android:paddingHorizontal="12dp"/>
+        </LinearLayout>
+
+        <!-- Quick Trending / Genre Chips -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/layoutGenreChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chipTrend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🔥 Tendances"
+                    android:textColor="#000000"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:background="#FFCA28"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipPop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🎵 Pop"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipRock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🎸 Rock"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipLofi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="☕ Lo-Fi"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipPiano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🎹 Piano"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipElectro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="⚡ Electro"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipAcoustic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🪕 Acoustique"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/chipClassical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:text="🎻 Classique"
+                    android:textColor="#CCCCCC"
+                    android:textSize="11sp"
+                    android:background="#2E2E2E"
+                    android:paddingHorizontal="10dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <!-- Top Segmented Navigation Tabs: Search vs Downloads -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:background="#161616">
+
+        <Button
+            android:id="@+id/tabSearchOnline"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="🔍 Recherche &amp; Découverte"
+            android:textColor="#FFCA28"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="0dp"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#2A2A2A"/>
+
+        <Button
+            android:id="@+id/tabMyDownloads"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="📥 Téléchargements (0)"
+            android:textColor="#888888"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="0dp"/>
+    </LinearLayout>
+
+    <!-- Content Containers (Search View vs Downloads View) -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ================= TAB 1: SEARCH & DISCOVERY ================= -->
+        <LinearLayout
+            android:id="@+id/viewSearchOnline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Search progress bar -->
+            <ProgressBar
+                android:id="@+id/pbSearchProgress"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:layout_marginBottom="6dp"/>
+
+            <!-- Status / Results title -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvSearchResultsHeader"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Titres recommandés &amp; populaires"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvSearchCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6 morceaux"
+                    android:textColor="#888888"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <!-- Search Results List -->
+            <ListView
+                android:id="@+id/lvSearchResults"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:divider="#121212"
+                android:dividerHeight="6dp"/>
+
+            <!-- Direct URL Paste Card (Snaptube feature) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#1E1E1E"
+                android:padding="8dp"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🔗 Vous avez un lien MP3 direct ?"
+                    android:textColor="#CCCCCC"
+                    android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/btnQuickPasteUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="Coller &amp; Télécharger"
+                    android:textSize="11sp"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#333333"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ================= TAB 2: MY DOWNLOADS (WorkManager Component) ================= -->
+        <LinearLayout
+            android:id="@+id/viewMyDownloads"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/composeDownloadManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Bottom Audio Preview Bar (Snaptube-like bottom preview player) -->
+    <LinearLayout
+        android:id="@+id/layoutPreviewBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#202020"
+        android:visibility="gone">
+
+        <!-- Progress line -->
+        <ProgressBar
+            android:id="@+id/pbPreviewProgress"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progress="0"
+            android:max="100"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:id="@+id/ivPreviewCover"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:background="#333333"
+                android:src="@android:drawable/ic_media_play"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/tvPreviewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Titre en cours d'écoute"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:singleLine="true"/>
+
+                <TextView
+                    android:id="@+id/tvPreviewArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Aperçu audio streaming"
+                    android:textColor="#FFCA28"
+                    android:textSize="11sp"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnPreviewPlayPause"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="⏸"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
+            <Button
+                android:id="@+id/btnPreviewDownloadNow"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="⬇ MP3"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="11sp"
+                android:backgroundTint="#FFCA28"
+                android:layout_marginStart="4dp"/>
+
+            <Button
+                android:id="@+id/btnPreviewClose"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:text="✕"
+                android:textColor="#888888"
+                android:textSize="12sp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_marginStart="4dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

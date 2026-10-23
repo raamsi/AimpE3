@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212">
+
+    <!-- ARRIÈRE-PLAN FLOU DYNAMIQUE (plein écran, sous la barre de statut) -->
+    <ImageView
+        android:id="@+id/imgBlurredBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop" />
+
+    <!-- VOILE DÉGRADÉ POUR LE CONTRASTE -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_scrim"
+        android:importantForAccessibility="no" />
+
+    <!-- CONTENEUR PRINCIPAL (laisse la place aux barres système) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <!-- ============ ÉCRAN LECTEUR ============ -->
+        <LinearLayout
+            android:id="@+id/layout_player"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="8dp"
+            android:visibility="visible">
+
+            <!-- Pochette : prend tout l'espace libre et reste carrée -->
+            <com.example.RgbBorderImageView
+                android:id="@+id/imgMainCover"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:contentDescription="Pochette de l'album"
+                android:scaleType="centerCrop" />
+
+            <!-- Actions secondaires -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnLike"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="J'aime"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_like"
+                    android:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnDislike"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Je n'aime pas"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_dislike"
+                    android:tint="#FFFFFF" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Paroles .lrc -->
+                <ImageButton
+                    android:id="@+id/btnLyrics"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Afficher les paroles"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_lyrics"
+                    android:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/btnMore"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Plus d'options"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_more"
+                    android:tint="#FFFFFF" />
+            </LinearLayout>
+
+            <!-- Titre (défilement automatique si trop long) -->
+            <TextView
+                android:id="@+id/tvMainTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="Titre de la musique"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMainArtist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="Nom de l'artiste"
+                android:textColor="#B3B3B3"
+                android:textSize="15sp" />
+
+            <!-- Paroles en direct : 2 lignes réservées pour ne pas faire sauter la mise en page -->
+            <TextView
+                android:id="@+id/tvLiveLyric"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="2"
+                android:minLines="2"
+                android:text="♪ Paroles synchronisées ♪"
+                android:textColor="#1DB954"
+                android:textSize="22sp"
+                android:textStyle="italic" />
+
+            <!-- Outils : Égaliseur, Minuteur, Répétition, Aléatoire -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnToolEq"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Égaliseur"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_eq"
+                    android:tint="#AAAAAA" />
+
+                <ImageButton
+                    android:id="@+id/btnToolTimer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Minuteur"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_timer"
+                    android:tint="#AAAAAA" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/btnToolRepeat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="12dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Répétition"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_repeat"
+                    android:tint="#AAAAAA" />
+
+                <ImageButton
+                    android:id="@+id/btnToolShuffle"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Lecture aléatoire"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_shuffle"
+                    android:tint="#AAAAAA" />
+            </LinearLayout>
+
+            <!-- Analyseur de spectre -->
+            <com.example.SpectrumView
+                android:id="@+id/spectrumView"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginBottom="4dp" />
+
+            <!-- Barre de progression -->
+            <SeekBar
+                android:id="@+id/seekbar1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progressTint="#1DB954"
+                android:thumbTint="#1DB954" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+                <TextView
+                    android:id="@+id/tvCurrentTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textColor="#9A9A9A"
+                    android:textSize="12sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvTotalDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textColor="#9A9A9A"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Contrôles de lecture -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/buttonPrev"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Morceau précédent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_prev"
+                    android:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/buttonRewind"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginLeft="4dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Reculer de 10 secondes"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_rewind"
+                    android:tint="#FFFFFF" />
+
+                <!-- Play / Pause : cercle blanc, le texte (▶ / ⏸) est géré en code -->
+                <Button
+                    android:id="@+id/buttonPlay"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:background="@drawable/bg_play_button"
+                    android:contentDescription="Lecture / Pause"
+                    android:includeFontPadding="false"
+                    android:padding="0dp"
+                    android:stateListAnimator="@null"
+                    android:text="▶"
+                    android:textColor="#121212"
+                    android:textSize="28sp" />
+
+                <ImageButton
+                    android:id="@+id/buttonForward"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginRight="4dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Avancer de 10 secondes"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_forward"
+                    android:tint="#FFFFFF" />
+
+                <ImageButton
+                    android:id="@+id/buttonNext"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Morceau suivant"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_next"
+                    android:tint="#FFFFFF" />
+            </LinearLayout>
+
+            <!-- Qualité audio -->
+            <TextView
+                android:id="@+id/tvAudioQuality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="-- KHZ -- KBPS --"
+                android:textColor="#8A8A8A"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+        <!-- ============ PLAYLIST ============ -->
+        <LinearLayout
+            android:id="@+id/layout_playlist"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <!-- Barre de recherche locale stylisée -->
+            <EditText
+                android:id="@+id/etSearchMusic"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#26FFFFFF"
+                android:hint="Rechercher dans vos musiques..."
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#8A8A8A"
+                android:textSize="14sp" />
+
+            <ListView
+                android:id="@+id/listview1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:divider="#1FFFFFFF"
+                android:dividerHeight="1px"
+                android:fastScrollEnabled="true"
+                android:overScrollMode="never"
+                android:paddingBottom="8dp"
+                android:paddingTop="4dp" />
+        </LinearLayout>
+
+        <!-- ============ BARRE DE NAVIGATION ============ -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#26FFFFFF" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#E61A1A1A"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <ImageButton
+                android:id="@+id/btn_nav_grid"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Lecteur"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_grid"
+                android:tint="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/btn_nav_eq"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Égaliseur"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_equalizer"
+                android:tint="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/btnSearchMain"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@android:drawable/ic_menu_search"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Téléchargeur"
+                android:tint="#FFFFFF" />
+
+            <ImageButton
+                android:id="@+id/btn_nav_list"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Playlist"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_playlist"
+                android:tint="#FFFFFF" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

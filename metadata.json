@@ -1,0 +1,6 @@
+{
+  "name": "AimpE3",
+  "description": "Lecteur audio moderne avec paroles synchronisées, éditeur LRC interactif, égaliseur DSP et visualisation de spectre audio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

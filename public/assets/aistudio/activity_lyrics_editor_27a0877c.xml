@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0B0B10">
+
+    <!-- Barre supérieure : Titre et bouton de validation (coche) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="#16161C">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editor"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/ic_check" 
+            android:text="✓"
+            android:textColor="#FFAA00"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+    <!-- Liste interactive des lignes de paroles avec leurs timestamps -->
+    <ListView
+        android:id="@+id/lvEditorList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="6dp"
+        android:padding="8dp"
+        android:clipToPadding="false"/>
+
+    <!-- Barre de contrôle audio inférieure -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#16161C"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvEditorSongTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nom de la musique"
+            android:textColor="#FFAA00"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:layout_marginBottom="4dp"/>
+
+        <SeekBar
+            android:id="@+id/editorSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="5">
+
+            <!-- Bouton de vitesse / options -->
+            <Button
+                android:id="@+id/btnSpeed"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="1.00x"
+                android:textColor="#FFFFFF"
+                android:background="#FFAA00"
+                android:textSize="12sp"
+                android:textAllCaps="false"/>
+
+            <!-- Reculer de 5s -->
+            <Button
+                android:id="@+id/btnRewind5"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="⏪ 5s"
+                android:textColor="#FFFFFF"
+                android:background="#22222A"
+                android:textSize="12sp"/>
+
+            <!-- Play / Pause -->
+            <Button
+                android:id="@+id/btnEditorPlay"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="▶"
+                android:textColor="#FFFFFF"
+                android:background="#22222A"
+                android:textSize="16sp"/>
+
+            <!-- Avancer de 5s -->
+            <Button
+                android:id="@+id/btnForward5"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="5s ⏩"
+                android:textColor="#FFFFFF"
+                android:background="#22222A"
+                android:textSize="12sp"/>
+
+            <!-- Bouton MARK principal (Orange vif) -->
+            <Button
+                android:id="@+id/btnMark"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:text="Mark"
+                android:textColor="#FFFFFF"
+                android:background="#FFAA00"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:textAllCaps="false"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#1E1E1E"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp">
+
+    <!-- Top Row: Icon + Title + Status Badge -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvItemIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:text="🎵"
+            android:textSize="18sp"
+            android:background="#2A2A2A"
+            android:layout_marginEnd="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvItemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nom du morceau"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"/>
+
+            <TextView
+                android:id="@+id/tvItemSubtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fichier audio MP3"
+                android:textColor="#AAAAAA"
+                android:textSize="12sp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvItemStatusBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="En cours"
+            android:textColor="#FFA000"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:background="#2E2500"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Progress Bar (visible when running/pending) -->
+    <ProgressBar
+        android:id="@+id/pbItemProgress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginTop="8dp"
+        android:progress="0"
+        android:max="100"
+        android:progressTint="#1DB954"
+        android:progressBackgroundTint="#333333"
+        android:visibility="gone"/>
+
+    <!-- Bottom Row: Progress Text / Info + Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tvItemDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Taille : -- Mo"
+            android:textColor="#777777"
+            android:textSize="11sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <!-- Action: Play -->
+        <Button
+            android:id="@+id/btnItemPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="▶ Écouter"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#1DB954"
+            android:paddingHorizontal="10dp"
+            android:layout_marginStart="6dp"
+            android:visibility="gone"/>
+
+        <!-- Action: Cancel -->
+        <Button
+            android:id="@+id/btnItemCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="✕ Annuler"
+            android:textSize="12sp"
+            android:textColor="#FFBBBB"
+            android:backgroundTint="#442222"
+            android:paddingHorizontal="10dp"
+            android:layout_marginStart="6dp"
+            android:visibility="gone"/>
+
+        <!-- Action: Retry -->
+        <Button
+            android:id="@+id/btnItemRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="🔄 Réessayer"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2196F3"
+            android:paddingHorizontal="10dp"
+            android:layout_marginStart="6dp"
+            android:visibility="gone"/>
+
+        <!-- Action: Delete -->
+        <Button
+            android:id="@+id/btnItemDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="🗑"
+            android:textSize="13sp"
+            android:textColor="#AAAAAA"
+            android:backgroundTint="#2A2A2A"
+            android:paddingHorizontal="10dp"
+            android:layout_marginStart="6dp"/>
+    </LinearLayout>
+
+</LinearLayout>
