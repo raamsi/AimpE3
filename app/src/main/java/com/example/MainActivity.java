@@ -1,7 +1,7 @@
 package com.example;
 
 import android.Manifest;
-import android.app.Activity;
+import androidx.activity.ComponentActivity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentUris;
@@ -68,7 +68,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ComponentActivity {
     private static WeakReference<MainActivity> activeActivity =
         new WeakReference<MainActivity>(null);
 
@@ -98,6 +98,7 @@ public class MainActivity extends Activity {
     private RgbBorderImageView imgMainCover;
     private ImageView imgBlurredBackground;
     private SpectrumView spectrumView;
+    private com.example.visualizer.AudioVisualizerEngine visualizerEngine;
     private SeekBar seekbar1;
     private ListView listview1;
     private EditText etSearchMusic;
@@ -278,6 +279,12 @@ public class MainActivity extends Activity {
                 spectrumView.linkMediaPlayer(mediaPlayer.getAudioSessionId());
             } catch (Exception ignored) {}
         }
+        if (visualizerEngine != null && mediaPlayer != null) {
+            try {
+                visualizerEngine.attachAudioSession(mediaPlayer.getAudioSessionId());
+                visualizerEngine.setPlaying(isPlaying);
+            } catch (Exception ignored) {}
+        }
         if (mediaPlayer != null) {
             updateProgress();
             if (isPlaying) startProgressUpdates();
@@ -289,6 +296,9 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         activityResumed = false;
+        if (visualizerEngine != null) {
+            visualizerEngine.setPlaying(false);
+        }
         if (!lyricsScreenRequested && !lyricsScreenVisible) stopProgressUpdates();
     }
 
@@ -304,6 +314,10 @@ public class MainActivity extends Activity {
         abandonAudioFocus();
         handler.removeCallbacksAndMessages(null);
 
+        if (visualizerEngine != null) {
+            visualizerEngine.release();
+            visualizerEngine = null;
+        }
         if (spectrumView != null) spectrumView.releaseVisualizer();
         releaseEffects();
         releasePlayer();
@@ -410,6 +424,11 @@ public class MainActivity extends Activity {
         imgMainCover = (RgbBorderImageView) findViewById(R.id.imgMainCover);
         imgBlurredBackground = (ImageView) findViewById(R.id.imgBlurredBackground);
         spectrumView = (SpectrumView) findViewById(R.id.spectrumView);
+        androidx.compose.ui.platform.ComposeView composeVisualizerView = findViewById(R.id.composeVisualizerView);
+        if (composeVisualizerView != null) {
+            visualizerEngine = new com.example.visualizer.AudioVisualizerEngine(this);
+            com.example.visualizer.AudioVisualizerBridge.setupVisualizerView(composeVisualizerView, visualizerEngine);
+        }
         seekbar1 = (SeekBar) findViewById(R.id.seekbar1);
         listview1 = (ListView) findViewById(R.id.listview1);
     }
@@ -1112,6 +1131,9 @@ public class MainActivity extends Activity {
         isPlaying = playing;
         if (buttonPlay != null) buttonPlay.setText(playing ? "⏸" : "▶");
         if (imgMainCover != null) imgMainCover.setAnimating(playing);
+        if (visualizerEngine != null) {
+            visualizerEngine.setPlaying(playing);
+        }
         if (playing) {
             startProgressUpdates();
         } else {
@@ -1312,6 +1334,10 @@ public class MainActivity extends Activity {
         if (tvTotalDuration != null) tvTotalDuration.setText(formatTime(duration));
 
         int sessionId = player.getAudioSessionId();
+        if (visualizerEngine != null) {
+            visualizerEngine.attachAudioSession(sessionId);
+            visualizerEngine.setPlaying(true);
+        }
         if (spectrumView != null && !lyricsScreenVisible) {
             spectrumView.linkMediaPlayer(sessionId);
         }
