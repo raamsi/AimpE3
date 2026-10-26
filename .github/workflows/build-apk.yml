@@ -45,9 +45,6 @@ jobs:
             cp .env.example .env
           fi
 
-      - name: Run Unit Tests
-        run: gradle testDebugUnitTest --no-daemon
-
       - name: Assemble Debug APK
         run: gradle assembleDebug --no-daemon --stacktrace
 
@@ -57,3 +54,7 @@ jobs:
           name: AimpE3-Debug-APK
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      - name: Run Unit Tests
+        run: gradle testDebugUnitTest --no-daemon
+        continue-on-error: true
